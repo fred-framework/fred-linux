@@ -63,7 +63,7 @@ int build_partitions_(struct sys_layout *self, const struct sys_hw_config *hw_co
 
     // Read arch file tokens
     // FRED_PATH is not inserted by the user but chosen at compile time
-    strcpy(arch_path, FRED_PATH);
+    strcpy(arch_path, STR(FRED_PATH));
     strncat(arch_path, arch_file, sizeof(arch_path) - strlen(arch_path) - 1);
     retval = pars_tokenize(&tokens, arch_path);
     if (retval < 0)
@@ -135,7 +135,7 @@ static int build_hw_tasks_(struct sys_layout *self, const char *hw_tasks_file)
     struct partition *partition = NULL;
     const char *hw_task_name = NULL;
     uint32_t hw_task_id;
-    uint32_t hw_task_timout_ms;
+    uint32_t hw_task_timout_us;
     const char *part_name = NULL;
     const char *bits_path = NULL;
     int data_buffs_count;
@@ -145,7 +145,7 @@ static int build_hw_tasks_(struct sys_layout *self, const char *hw_tasks_file)
 
     // Read hw-tasks tokens
     // FRED_PATH is not inserted by the user but chosen at compile time
-    strcpy(hw_tasks_path, FRED_PATH);
+    strcpy(hw_tasks_path, STR(FRED_PATH));
     strncat(hw_tasks_path, hw_tasks_file, sizeof(hw_tasks_path) - strlen(hw_tasks_path) - 1);
     retval = pars_tokenize(&tokens, hw_tasks_path);
     if (retval < 0)
@@ -166,8 +166,8 @@ static int build_hw_tasks_(struct sys_layout *self, const char *hw_tasks_file)
         hw_task_name = pars_get_token(tokens, i, 0);
         // Get hw-task id (second token in the line),
         hw_task_id = str_to_uint32_(pars_get_token(tokens, i, 1));
-        // Get hw-task timeout in milliseconds (third token in the line),
-        hw_task_timout_ms = str_to_uint32_(pars_get_token(tokens, i, 2));
+        // Get hw-task timeout in microseconds (third token in the line),
+        hw_task_timout_us = str_to_uint32_(pars_get_token(tokens, i, 2));
         // Get hw-task partition (fourth token)
         part_name = pars_get_token(tokens, i, 3);
         // Get bitstreams sub-path path (fifth token)
@@ -198,8 +198,8 @@ static int build_hw_tasks_(struct sys_layout *self, const char *hw_tasks_file)
         }
 
         // Set hw-task timeout
-        if (hw_task_timout_ms != 0)
-            hw_task_set_timeout_us(self->hw_tasks[i], hw_task_timout_ms * 1000);
+        if (hw_task_timout_us != 0)
+            hw_task_set_timeout_us(self->hw_tasks[i], hw_task_timout_us);
 
         // The reminder tokens (after fourth initial tokens) define the buffers
         data_buffs_count = pars_get_num_tokens(tokens, i) - 5;

@@ -22,6 +22,8 @@
 
 //---------------------------------------------------------------------------------------------
 
+#ifdef BIT_MANGLE
+
 static
 uint32_t swab32_(uint32_t x)
 {
@@ -70,6 +72,7 @@ ssize_t mangle_bitstream_(uint8_t *bitstream, size_t length)
 
     return length;
 }
+#endif
 
 //---------------------------------------------------------------------------------------------
 
@@ -187,7 +190,13 @@ int hw_task_init(struct hw_task **self, uint32_t hw_id, const char *name,
     ssize_t xdev_length;
     char bit_path[MAX_PATH];
     int bits_count;
+    // TODO the compiler acuses an error: 
+    // variable ‘part_name’ set but not used [-Werror=unused-but-set-variable]
+    // however this is not true. For now, I will disable this warning but it asks further investigation.
     const char *part_name;
+    char fred_path[MAX_PATH];
+
+    strcpy(fred_path,STR(FRED_PATH));
 
     // Allocate and set everything to 0
     *self = calloc(1, sizeof(**self));
@@ -208,7 +217,7 @@ int hw_task_init(struct hw_task **self, uint32_t hw_id, const char *name,
     for (int i = 0; i < bits_count; ++i) {
         // Build bistream path with name
         sprintf(bit_path, "%s%s/%s/%s_s%u.bin",
-                FRED_PATH, bits_path, part_name, (*self)->name, i);
+                fred_path, bits_path, part_name, (*self)->name, i);
 
         // Load bitstream
         xdev_length = load_bit_buffer_dev_(buffctl, bit_path, &((*self)->bits_buffs[i]));
