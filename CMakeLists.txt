@@ -23,12 +23,12 @@ add_executable(${PROJECT_NAME} ${SRC_FILES})
 target_include_directories(${PROJECT_NAME}
  PRIVATE
     .
-    hw_support 
-    shared_kernel  
-    shared_user  
-    srv_core  
-    srv_core_mocks  
-    srv_support  
+    hw_support
+    shared_kernel
+    shared_user
+    srv_core
+    srv_core_mocks
+    srv_support
     utils
 )
 
