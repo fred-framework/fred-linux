@@ -196,7 +196,7 @@ int hw_task_init(struct hw_task **self, uint32_t hw_id, const char *name,
     const char *part_name;
     char fred_path[MAX_PATH];
 
-    strcpy(fred_path,STR(FRED_PATH));
+    strcpy(fred_path,FRED_PATH);
 
     // Allocate and set everything to 0
     *self = calloc(1, sizeof(**self));

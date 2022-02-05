@@ -17,12 +17,7 @@
 
 #define LIST_SOCK_PATH          "/tmp/fred_sock"
 
-#define STR(x)  #x
-
-//#define FRED_PATH             "/opt/fredsys/"
-#ifndef FRED_PATH
-    #error It is required to define FRED_PATH during compilation
-#endif 
+#define FRED_PATH               "/opt/fredsys/"
 
 #define LOG_FILE                "log.txt"
 
