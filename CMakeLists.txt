@@ -14,7 +14,11 @@ if(NOT CMAKE_BUILD_TYPE)
 endif(NOT CMAKE_BUILD_TYPE)
 set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -fpic -D LOG_GLOBAL_LEVEL=LOG_LEV_FULL -D HW_TASKS_A64 -Wno-unused-but-set-variable")
+# 64-bit addresses is supported by FRED, but currently not by DART.
+# Therefore, we stick with 32 bits C_M_AXI_MEM_BUS_ADDR_WIDTH even for ZynqM devices
+# The second implication is that FRED server MUST BE compiled without the define `HW_TASKS_A64`, to make it compatible with 32 bits
+#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -fpic -D LOG_GLOBAL_LEVEL=LOG_LEV_FULL -D HW_TASKS_A64 -Wno-unused-but-set-variable")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -fpic -D LOG_GLOBAL_LEVEL=LOG_LEV_FULL -Wno-unused-but-set-variable")
 
 file(GLOB SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.c */*.c)
 
