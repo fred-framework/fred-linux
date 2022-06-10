@@ -165,6 +165,7 @@ int uio_dev_init(struct uio_dev **uio_dev, const char* dev_name)
         free(*uio_dev);
         return -2;
     }
+    DBG_PRINT("uio_drv: device name: %s, UIO path: %s \n", dev_name, f_path);
 
     return 0;
 }
