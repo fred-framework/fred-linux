@@ -105,7 +105,7 @@ int uio_dev_init(struct uio_dev **uio_dev, const char* dev_name)
     for (int i = 0;  i < dirs; ++i) {
 
         // Build name file path
-        sprintf(f_path, "%s/%s/name", sys_class_uio, namelist[i]->d_name);
+        snprintf(f_path, MAX_PATH, "%s/%s/name", sys_class_uio, namelist[i]->d_name);
 
         // Read device name (devtree name) from file and check if it's requested device
         if (!read_line_(f_path, uio_field) && !strcmp(uio_field, dev_name)) {
@@ -120,12 +120,12 @@ int uio_dev_init(struct uio_dev **uio_dev, const char* dev_name)
             (*uio_dev)->uio_num = str_to_uint32_(&uio_name[strspn(uio_name, uio)]);
 
             // Read map address
-            sprintf(f_path, "%s/uio%u/maps/map0/addr", sys_class_uio, (*uio_dev)->uio_num);
+            snprintf(f_path, MAX_PATH,"%s/uio%u/maps/map0/addr", sys_class_uio, (*uio_dev)->uio_num);
             read_line_(f_path, uio_field);
             (*uio_dev)->regs_addr = strhex_to_uintptr_(uio_field);
 
             // Read map size
-            sprintf(f_path, "%s/uio%u/maps/map0/size", sys_class_uio, (*uio_dev)->uio_num);
+            snprintf(f_path, MAX_PATH,"%s/uio%u/maps/map0/size", sys_class_uio, (*uio_dev)->uio_num);
             read_line_(f_path, uio_field);
             (*uio_dev)->regs_size = strhex_to_size_(uio_field);
 
@@ -147,7 +147,7 @@ int uio_dev_init(struct uio_dev **uio_dev, const char* dev_name)
     }
 
     // Build path and open the device file
-    sprintf(f_path, "/dev/uio%d", (*uio_dev)->uio_num);
+    snprintf(f_path, MAX_PATH, "/dev/uio%d", (*uio_dev)->uio_num);
     (*uio_dev)->uio_fd = open(f_path, O_RDWR);
     if ((*uio_dev)->uio_fd < 0) {
         ERROR_PRINT("uio_drv: unable to open UIO device: %s\n", dev_name);

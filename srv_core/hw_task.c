@@ -88,7 +88,7 @@ int gen_user_buffs_(struct fred_buff_if *buff_if, struct user_buff *buff_usr)
 
     // Convert device name (from kernel mod) into user form
     // es: "fred!buffN" -> "/dev/fred/buffN"
-    sprintf(dev_usr_name,"/dev/%s", buff_if->dev_name);
+    snprintf(dev_usr_name,MAX_PATH,"/dev/%s", buff_if->dev_name);
     dev_usr_name[strcspn(dev_usr_name, "!")] = '/';
 
     strncpy(buff_usr->dev_name, dev_usr_name, MAX_PATH - 1);
@@ -216,7 +216,7 @@ int hw_task_init(struct hw_task **self, uint32_t hw_id, const char *name,
     // One bitstream for each slot in the partition
     for (int i = 0; i < bits_count; ++i) {
         // Build bistream path with name
-        sprintf(bit_path, "%s%s/%s/%s_s%u.bin",
+        snprintf(bit_path, MAX_PATH, "%s%s/%s/%s_s%u.bin",
                 fred_path, bits_path, part_name, (*self)->name, i);
 
         // Load bitstream

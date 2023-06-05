@@ -95,8 +95,8 @@ int build_partitions_(struct sys_layout *self, const struct sys_hw_config *hw_co
         for (int s = 0; s < part_slots_count; ++s) {
             // Init UIO device driver for slot and decoupler
             // Names must match device tree names
-            sprintf(dev_name, "slot_p%u_s%u", p, s);
-            sprintf(dec_name, "pr_decoupler_p%u_s%u", p, s);
+            snprintf(dev_name, MAX_NAMES, "slot_p%u_s%u", p, s);
+            snprintf(dec_name, MAX_NAMES, "pr_decoupler_p%u_s%u", p, s);
 
             // Create a new slot
             retval = slot_init(&slot, hw_config, s, dev_name, dec_name, scheduler);

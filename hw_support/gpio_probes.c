@@ -83,7 +83,7 @@ int gpio_probes_init()
     for (size_t p = 0; p < PINS_LEN; ++p) {
 
         // Enable pin
-        sprintf(str, "%d", probes.pins[p].idx);
+        snprintf(str, 1024, "%d", probes.pins[p].idx);
         retval = write(probes.exp_fd, str, 4);
         if (retval < 0) {
             ERROR_PRINT("fred_probes: error while enabling pin\n");
@@ -91,7 +91,7 @@ int gpio_probes_init()
         }
 
         // Open direction file
-        sprintf(str, "%sgpio%d/direction", GPIO_PATH, probes.pins[p].idx);
+        snprintf(str, 1024, "%sgpio%d/direction", GPIO_PATH, probes.pins[p].idx);
         fd = open(str, O_RDWR);
         if (fd < 0) {
             ERROR_PRINT("fred_probes: error while opening GPIO direction file\n");
@@ -108,7 +108,7 @@ int gpio_probes_init()
         close(fd);
 
         // Open value file
-        sprintf(str, "%sgpio%d/value", GPIO_PATH, probes.pins[p].idx);
+        snprintf(str, 1024, "%sgpio%d/value", GPIO_PATH, probes.pins[p].idx);
         fd = open(str, O_RDWR);
         if (fd < 0) {
             ERROR_PRINT("fred_probes: error while opening GPIO value file\n");
