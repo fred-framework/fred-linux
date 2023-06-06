@@ -112,6 +112,7 @@ int cyclic_client_notify_action_(void *notifier, enum notify_action_msg msg)
     struct cyclic_sw_tasks_client *cp;
 
     assert(notifier);
+    (void)(msg);
 
     cp = (struct cyclic_sw_tasks_client *)notifier;
 

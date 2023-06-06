@@ -62,8 +62,7 @@ int build_partitions_(struct sys_layout *self, const struct sys_hw_config *hw_co
     DBG_PRINT("fred_sys: building partitions\n");
 
     // Read arch file tokens
-    strcpy(arch_path, FRED_PATH);
-    strncat(arch_path, arch_file, sizeof(arch_path) - strlen(arch_path) - 1);
+    snprintf(arch_path, MAX_PATH, "%s/%s", FRED_PATH, arch_file);
     retval = pars_tokenize(&tokens, arch_path);
     if (retval < 0)
         return -1;

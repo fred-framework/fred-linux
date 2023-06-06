@@ -17,7 +17,9 @@
 
 #define LIST_SOCK_PATH          "/tmp/fred_sock"
 
-#define FRED_PATH               "/opt/fredsys/"
+#ifndef FRED_PATH
+#error "FRED_PATH must be defined (hint: use /opt/fredsys/)"
+#endif
 
 #define LOG_FILE                "log.txt"
 

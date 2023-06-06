@@ -80,6 +80,7 @@ void slot_drv_master_before_rcfg_(struct slot_drv *self)
     assert(self);
 
     // Empty, no actions required
+    (void)(self);
 }
 
 static
@@ -216,5 +217,3 @@ int slot_drv_master_init(struct slot_drv **self, const char *dev_name)
 
     return 0;
 }
-
-

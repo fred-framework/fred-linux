@@ -88,7 +88,7 @@ void event_handler_free(struct event_handler *self)
 {
     assert(self);
 
-    return self->free(self);
+    self->free(self);
 }
 
 //---------------------------------------------------------------------------------------------

@@ -71,7 +71,7 @@ int write_to_client_(int socket, const void *data, unsigned int data_len)
     int retval;
 
     retval = write(socket, data, data_len);
-    if (retval != data_len) {
+    if (retval < 0 || ((unsigned int)(retval)) != data_len) {
         ERROR_PRINT("fred_sys: unable to reach client. Error: %s\n", strerror(errno));
         return 1;
     }
@@ -117,7 +117,8 @@ int send_user_data_buffs_(struct sw_task_client *self, int task_idx)
         usr_dev_name[strcspn(usr_dev_name, "!")] = '/';
 
         strncpy(user_buffs[i].dev_name, usr_dev_name,
-                sizeof(user_buffs[i].dev_name) -1);
+                sizeof(user_buffs[i].dev_name));
+        user_buffs[i].dev_name[sizeof(user_buffs[i].dev_name) - 1] = '\0';
     }
 
     // Send to the client the number of data buffers

@@ -29,6 +29,7 @@ static
 uint32_t slot_drv_null_get_id_(const struct slot_drv *self)
 {
     assert(self);
+    (void)(self);
 
     return 0U;
 }
@@ -49,6 +50,7 @@ static
 void slot_drv_null_before_rcfg_(struct slot_drv *self)
 {
     assert(self);
+    (void)(self);
 
     // Empty, no actions required
 }
@@ -57,6 +59,7 @@ static
 void slot_drv_null_after_rcfg_(struct slot_drv *self)
 {
     assert(self);
+    (void)(self);
 
     // Empty, no actions required
 }
@@ -67,6 +70,8 @@ int slot_drv_null_start_compute_(struct slot_drv *self, const uintptr_t *args,
     struct slot_drv_null *null_drv;
 
     assert(self);
+    (void)(args);
+    (void)(args_size);
 
     null_drv = (struct slot_drv_null *)self;
 
@@ -87,6 +92,7 @@ void slot_drv_null_after_compute_(struct slot_drv *self)
 void slot_drv_null_wait_for_compl_(const struct slot_drv *self)
 {
     assert(self);
+    (void)(self);
 
     // Empty, no actions required
 }
@@ -114,6 +120,7 @@ int slot_drv_null_init(struct slot_drv **self, const char *dev_name)
     int retval;
 
     assert(self);
+    (void)(dev_name);
 
     *self = NULL;
 
@@ -150,5 +157,3 @@ int slot_drv_null_init(struct slot_drv **self, const char *dev_name)
 
     return 0;
 }
-
-
