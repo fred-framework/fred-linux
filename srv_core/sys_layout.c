@@ -142,8 +142,7 @@ static int build_hw_tasks_(struct sys_layout *self, const char *hw_tasks_file)
     DBG_PRINT("fred_sys: building hw-tasks\n");
 
     // Read hw-tasks tokens
-    strcpy(hw_tasks_path, FRED_PATH);
-    strncat(hw_tasks_path, hw_tasks_file, sizeof(hw_tasks_path) - strlen(hw_tasks_path) - 1);
+    snprintf(hw_tasks_path, MAX_PATH, "%s/%s", FRED_PATH, hw_tasks_file);
     retval = pars_tokenize(&tokens, hw_tasks_path);
     if (retval < 0)
         return -1;
