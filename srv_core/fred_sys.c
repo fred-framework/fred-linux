@@ -453,6 +453,7 @@ int fred_sys_init(struct fred_sys **self, const char *arch_file,
     srand(time(NULL));
 
     DBG_PRINT(fred_logo);
+    (void)(fred_logo);
 
     switch (mode) {
         case FRED_SYS_RCFG_TEST_MODE:
